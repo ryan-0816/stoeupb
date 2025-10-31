@@ -2,6 +2,7 @@
 
 # See README.md for instructions on how the system works.
 
+# Newer file, changing simple starters and adding ending verb
 import re
 
 LONGEST_KEY = 1
@@ -123,13 +124,13 @@ SIMPLE_STARTERS = {
     "STH": (" that", None),
     "STPHR": (" if", None),
     "SWH": (" when", None),
-    "SKWHR": (" what", None),
+    "SKPR": (" what", None),
     "SWHR": (" where", None),
     "SPWR": (" who", None),
     "SKPWH": (" why", None),
-
     "SPWH": (" but", None),
     "STPR": (" for", None),
+    "SPWHR": (" how", None),
 
     # Remove the entry below if you don't want "and" phrases.
     "SKP": (" and", None),
@@ -267,11 +268,11 @@ ENDERS = {
     "RPBLGTSDZ": ("past", {None: " ended up", "root": " end up", "present-participle": " ending up", "past-participle": " ended up"}),
 
 
-    #
-    "RLGS"
-    "RLGTS"
-    "RLGSZ"
-    "RLGTSDZ"
+    # RLGS: To play (with)
+    "RLGS":  ("present", {None: " play","3ps": " plays","present-participle": " playing", "past-participle": " played"}),
+    "RLGTS": ("present", {None: " play with", "3ps": " plays with", "present-participle": " playing with", "past-participle": " played with"}),
+    "RLGSZ": ("past", {None: " played", "root": " play", "present-participle": " playing", "past-participle": " played"}),
+    "RLGTSDZ": ("past", {None: " played with", "root": " play with", "present-participle": " playing with", "past-participle": " played with"}),
 
     #
     "RPBGS"
@@ -279,17 +280,26 @@ ENDERS = {
     "RPBGSZ"
     "RPBGTSDZ"
 
-    #
-    "RPLG"
-    "RPLGT"
-    "RPLGD"
-    "RPLGTD"
+    # RPBLGS: To wait (for)
+    "RPBLGS":    ("present", {None: " wait", "3ps": " waits", "present-participle": " waiting", "past-participle": " waited"}),
+    "RPBLGTS":   ("present", {None: " wait for", "3ps": " waits for", "present-participle": " waiting for", "past-participle": " waited for"}),
+    "RPBLGSZ":   ("past", {None: " waited", "root": " wait", "present-participle": " waiting", "past-participle": " waited"}),
+    "RPBLGTSDZ": ("past", {None: " waited for", "root": " wait for", "present-participle": " waiting for", "past-participle": " waited for"}),
 
-    #
-    "RPLGS"
-    "RPLGTS"
-    "RPLGSZ"
-    "RPLGTSDZ"
+
+    # RPLG: To win (the)
+    "RPLG":   ("present", {None: " win", "3ps": " wins", "present-participle": " winning", "past-participle": " won"}),
+    "RPLGT":  ("present", {None: " win the", "3ps": " wins the", "present-participle": " winning the", "past-participle": " won the"}),
+    "RPLGD":  ("past",    {None: " won", "root": " win", "present-participle": " winning", "past-participle": " won"}),
+    "RPLGTD": ("past",    {None: " won the", "root": " win the", "present-participle": " winning the", "past-participle": " won the"}),
+
+    # RPLGS: To lose (the)
+    "RPLGS":    ("present", {None: " lose", "3ps": " loses", "present-participle": " losing", "past-participle": " lost"}),
+    "RPLGTS":   ("present", {None: " lose the", "3ps": " loses the", "present-participle": " losing the", "past-participle": " lost the"}),
+    "RPLGSZ":   ("past",    {None: " lost", "root": " lose", "present-participle": " losing", "past-participle": " lost"}),
+    "RPLGTSDZ": ("past",    {None: " lost the", "root": " lose the", "present-participle": " losing the", "past-participle": " lost the"}),
+
+
 
 
     # End of my additions

@@ -2,6 +2,7 @@
 
 # See README.md for instructions on how the system works.
 
+# older file, added HOW to simple starters
 import re
 
 LONGEST_KEY = 1
