@@ -223,8 +223,7 @@ STRUCTURE_EXCEPTIONS = {
     "UF": ("! just", False, None),
     '''
     
-    # added E and U combined for inverted "am/is/are" (question form)
-    # These handle cases with AND without enders
+    # added EU for inverted question with am/is/are (no ender)
     "EU": ({
         "present": {
             None: "are !",
@@ -260,6 +259,36 @@ STRUCTURE_EXCEPTIONS = {
             "1pp": "weren't !",
             "3pp": "weren't !",
         }
+    }, False, "present-participle"),
+
+    # Inverted question forms with modals (A = can/could)
+    "AEU": ({
+        "present": "can ! be",
+        "past": "could ! be",
+    }, False, "present-participle"),
+    "A*EU": ({
+        "present": "can't ! be",
+        "past": "couldn't ! be",
+    }, False, "present-participle"),
+
+    # Inverted question forms with modals (O = shall/should)
+    "OEU": ({
+        "present": "shall ! be",
+        "past": "should ! be",
+    }, False, "present-participle"),
+    "O*EU": ({
+        "present": "shouldn't ! be",
+        "past": "shouldn't ! be",
+    }, False, "present-participle"),
+
+    # Inverted question forms with modals (AO = will/would)
+    "AOEU": ({
+        "present": "will ! be",
+        "past": "would ! be",
+    }, False, "present-participle"),
+    "AO*EU": ({
+        "present": "won't ! be",
+        "past": "wouldn't ! be",
     }, False, "present-participle"),
 
     # Special cases for empty starters.
@@ -279,8 +308,9 @@ STRUCTURES = {
     "*E": ({tense: {form: "!*" + TO_BE[tense][form] for form in TO_BE[tense]} for tense in TO_BE}, True, "present-participle"),
     "E": ({tense: {form: "!*" + TO_BE[tense][form] for form in TO_BE[tense]} for tense in TO_BE}, True, "present-participle"),
     
-    # Inverted question forms (must come before EF to have priority)
-    # These handle cases WITH enders (e.g., "am I going")
+    # EU inverted question with am/is/are (with ender) - produces present participle
+    # No "be" needed here because am/is/are already handle it
+    # use-middle-verb-form is False to prevent inserting "do/does/did"
     "EU": ({
         "present": {
             None: "are !",
@@ -317,6 +347,37 @@ STRUCTURES = {
             "3pp": "weren't !",
         }
     }, False, "present-participle"),
+
+    # Inverted question forms with modals (A = can/could)
+    # Add "be" because modals need it for continuous form
+    "AEU": ({
+        "present": "can ! be",
+        "past": "could ! be",
+    }, False, "present-participle"),
+    "A*EU": ({
+        "present": "can't ! be",
+        "past": "couldn't ! be",
+    }, False, "present-participle"),
+
+    # Inverted question forms with modals (O = shall/should)
+    "OEU": ({
+        "present": "shall ! be",
+        "past": "should ! be",
+    }, False, "present-participle"),
+    "O*EU": ({
+        "present": "shall ! not be",
+        "past": "shouldn't ! be",
+    }, False, "present-participle"),
+
+    # Inverted question forms with modals (AO = will/would)
+    "AOEU": ({
+        "present": "will ! be",
+        "past": "would ! be",
+    }, False, "present-participle"),
+    "AO*EU": ({
+        "present": "won't ! be",
+        "past": "wouldn't ! be",
+    }, False, "present-participle"),
     
     "*EF": ({tense: {form: "!*" + TO_HAVE[tense][form] + " been" for form in TO_HAVE[tense]} for tense in TO_HAVE}, True, "present-participle"),
     "EF": ({tense: {form: "!*" + TO_HAVE[tense][form] + " been" for form in TO_HAVE[tense]} for tense in TO_HAVE}, True, "present-participle"),
@@ -328,34 +389,10 @@ STRUCTURES = {
     "*EU": ("! still*", True, None),
     "EU": ("!* still", True, None),
     '''
-    # added E and U combined for inverted "am/is/are" (question form)
-    "EU": ({
-        "present": {
-            None: "are !*",
-            "1ps": "am !*",
-            "3ps": "is !*",
-        },
-        "past": {
-            None: "were !*",
-            "1ps": "was !*",
-            "3ps": "was !*",
-        }
-    }, True, "present-participle"),
-    "*EU": ({
-        "present": {
-            None: "aren't !*",
-            "1ps": "aren't !*",
-            "3ps": "isn't !*",
-        },
-        "past": {
-            None: "weren't !*",
-            "1ps": "wasn't !*",
-            "3ps": "wasn't !*",
-        }
-    }, True, "present-participle"),
+    # The EU inversion is already defined above
 
-    "*EUF": ("!* even", True, None),
-    "EUF": ("!* never", True, None),
+    "*EUF": ("!* even", True, "root"),
+    "EUF": ("!* never", True, "root"),
 
     "*U": ({"present": ALWAYS, "past": ALWAYS}, True, None),
     "U": ({"present": ALWAYS, "past": ALWAYS}, True, None),
@@ -367,64 +404,7 @@ ENDERS = {
     "": ("present", ""),
     "D": ("past", ""),
 
-    # My additions
-
-    # RPBLG: To start (to)
-    "RPBLG": ("present", {None: " start", "3ps": " starts", "present-participle": " starting", "past-participle": " started"}),
-    "RPBLGT": ("present", {None: " start to", "3ps": " starts to", "present-participle": " starting to", "past-participle": " started to"}),
-    "RPBLGD": ("past", {None: " started", "root": " start", "present-participle": " starting", "past-participle": " started"}),
-    "RPBLGTD": ("past", {None: " started to", "root": " start to", "present-participle": " starting to", "past-participle": " started to"}),
-
-    # RPBLGS: To end (up)
-    "RPBLGS": ("present", {None: " end","3ps": " ends","present-participle": " ending", "past-participle": " ended"}),
-    "RPBLGTS": ("present", {None: " end up", "3ps": " ends up", "present-participle": " ending up", "past-participle": " ended up"}),
-    "RPBLGSZ": ("past", {None: " ended", "root": " end", "present-participle": " ending", "past-participle": " ended"}),
-    "RPBLGTSDZ": ("past", {None: " ended up", "root": " end up", "present-participle": " ending up", "past-participle": " ended up"}),
-
-
-    # RLGS: To play (with)
-    "RLGS":  ("present", {None: " play","3ps": " plays","present-participle": " playing", "past-participle": " played"}),
-    "RLGTS": ("present", {None: " play with", "3ps": " plays with", "present-participle": " playing with", "past-participle": " played with"}),
-    "RLGSZ": ("past", {None: " played", "root": " play", "present-participle": " playing", "past-participle": " played"}),
-    "RLGTSDZ": ("past", {None: " played with", "root": " play with", "present-participle": " playing with", "past-participle": " played with"}),
-
-    '''
-    "RPBGS": 
-    "RPBGTS"
-    "RPBGSZ"
-    "RPBGTSDZ"
-    '''
-
-    # RBLGS: To choose (to)
-    "RBLGS":  ("present", {None: " choose", "3ps": " chooses", "present-participle": " choosing", "past-participle": " chosen"}),
-    "RBLGTS": ("present", {None: " choose to", "3ps": " chooses to", "present-participle": " choosing to", "past-participle": " chosen to"}),
-    "RBLGSZ": ("past", {None: " chose", "root": " choose", "present-participle": " choosing", "past-participle": " chosen"}),
-    "RBLGTSDZ": ("past", {None: " chose to", "root": " choose to", "present-participle": " choosing to", "past-participle": " chosen to"}),
-
-
-    # RPBLGS: To wait (for)
-    "RPBLGS":    ("present", {None: " wait", "3ps": " waits", "present-participle": " waiting", "past-participle": " waited"}),
-    "RPBLGTS":   ("present", {None: " wait for", "3ps": " waits for", "present-participle": " waiting for", "past-participle": " waited for"}),
-    "RPBLGSZ":   ("past", {None: " waited", "root": " wait", "present-participle": " waiting", "past-participle": " waited"}),
-    "RPBLGTSDZ": ("past", {None: " waited for", "root": " wait for", "present-participle": " waiting for", "past-participle": " waited for"}),
-
-
-    # RPLG: To win (the)
-    "RPLG":   ("present", {None: " win", "3ps": " wins", "present-participle": " winning", "past-participle": " won"}),
-    "RPLGT":  ("present", {None: " win the", "3ps": " wins the", "present-participle": " winning the", "past-participle": " won the"}),
-    "RPLGD":  ("past",    {None: " won", "root": " win", "present-participle": " winning", "past-participle": " won"}),
-    "RPLGTD": ("past",    {None: " won the", "root": " win the", "present-participle": " winning the", "past-participle": " won the"}),
-
-    # RPLGS: To lose (the)
-    "RPLGS":    ("present", {None: " lose", "3ps": " loses", "present-participle": " losing", "past-participle": " lost"}),
-    "RPLGTS":   ("present", {None: " lose the", "3ps": " loses the", "present-participle": " losing the", "past-participle": " lost the"}),
-    "RPLGSZ":   ("past",    {None: " lost", "root": " lose", "present-participle": " losing", "past-participle": " lost"}),
-    "RPLGTSDZ": ("past",    {None: " lost the", "root": " lose the", "present-participle": " losing the", "past-participle": " lost the"}),
-
-
-
-
-    # End of my additions
+    # my additions moved to bottom to take priority
 
     # RB: To ask
     "RB": ("present", {None: " ask", "3ps": " asks", "present-participle": " asking", "past-participle": " asked"}),
@@ -761,6 +741,70 @@ ENDERS = {
     "RBGT": ("present", {None: " work on", "3ps": " works on", "present-participle": " working on", "past-participle": " worked on"}),
     "RBGD": ("past", {None: " worked", "root": " work", "present-participle": " working", "past-participle": " worked"}),
     "RBGTD": ("past", {None: " worked on", "root": " work on", "present-participle": " working on", "past-participle": " worked on"}),
+
+    # My additions
+
+    # RPBLG: To start (to)
+    "RPBLG": ("present", {None: " start", "3ps": " starts", "present-participle": " starting", "past-participle": " started"}),
+    "RPBLGT": ("present", {None: " start to", "3ps": " starts to", "present-participle": " starting to", "past-participle": " started to"}),
+    "RPBLGD": ("past", {None: " started", "root": " start", "present-participle": " starting", "past-participle": " started"}),
+    "RPBLGTD": ("past", {None: " started to", "root": " start to", "present-participle": " starting to", "past-participle": " started to"}),
+
+    #  OVERLAP WITH WAIT
+
+    # RPBLGS: To end (up)
+    "RPBLGS": ("present", {None: " end","3ps": " ends","present-participle": " ending", "past-participle": " ended"}),
+    "RPBLGTS": ("present", {None: " end up", "3ps": " ends up", "present-participle": " ending up", "past-participle": " ended up"}),
+    "RPBLGSZ": ("past", {None: " ended", "root": " end", "present-participle": " ending", "past-participle": " ended"}),
+    "RPBLGTSDZ": ("past", {None: " ended up", "root": " end up", "present-participle": " ending up", "past-participle": " ended up"}),
+
+
+    # RLGS: To play (with) 
+    "RLGS":  ("present", {None: " play","3ps": " plays","present-participle": " playing", "past-participle": " played"}),
+    "RLGTS": ("present", {None: " play with", "3ps": " plays with", "present-participle": " playing with", "past-participle": " played with"}),
+    "RLGSZ": ("past", {None: " played", "root": " play", "present-participle": " playing", "past-participle": " played"}),
+    "RLGTSDZ": ("past", {None: " played with", "root": " play with", "present-participle": " playing with", "past-participle": " played with"}),
+
+    # horrible chord
+
+    '''
+    "RPBGS": 
+    "RPBGTS"
+    "RPBGSZ"
+    "RPBGTSDZ"
+    '''
+
+    # RBLGS: To choose (to)
+    "RBLGS":  ("present", {None: " choose", "3ps": " chooses", "present-participle": " choosing", "past-participle": " chosen"}),
+    "RBLGTS": ("present", {None: " choose to", "3ps": " chooses to", "present-participle": " choosing to", "past-participle": " chosen to"}),
+    "RBLGSZ": ("past", {None: " chose", "root": " choose", "present-participle": " choosing", "past-participle": " chosen"}),
+    "RBLGTSDZ": ("past", {None: " chose to", "root": " choose to", "present-participle": " choosing to", "past-participle": " chosen to"}),
+
+
+    # RPBLS: To wait (for) 
+    # took out G, may overlap with become
+    "RPBLS":    ("present", {None: " wait", "3ps": " waits", "present-participle": " waiting", "past-participle": " waited"}),
+    "RPBLTS":   ("present", {None: " wait for", "3ps": " waits for", "present-participle": " waiting for", "past-participle": " waited for"}),
+    "RPBLSZ":   ("past", {None: " waited", "root": " wait", "present-participle": " waiting", "past-participle": " waited"}),
+    "RPBLTSDZ": ("past", {None: " waited for", "root": " wait for", "present-participle": " waiting for", "past-participle": " waited for"}),
+
+
+    # RPLG: To win (the)
+    "RPLG":   ("present", {None: " win", "3ps": " wins", "present-participle": " winning", "past-participle": " won"}),
+    "RPLGT":  ("present", {None: " win the", "3ps": " wins the", "present-participle": " winning the", "past-participle": " won the"}),
+    "RPLGD":  ("past",    {None: " won", "root": " win", "present-participle": " winning", "past-participle": " won"}),
+    "RPLGTD": ("past",    {None: " won the", "root": " win the", "present-participle": " winning the", "past-participle": " won the"}),
+
+    # RPLGS: To lose (the)
+    "RPLGS":    ("present", {None: " lose", "3ps": " loses", "present-participle": " losing", "past-participle": " lost"}),
+    "RPLGTS":   ("present", {None: " lose the", "3ps": " loses the", "present-participle": " losing the", "past-participle": " lost the"}),
+    "RPLGSZ":   ("past",    {None: " lost", "root": " lose", "present-participle": " losing", "past-participle": " lost"}),
+    "RPLGTSDZ": ("past",    {None: " lost the", "root": " lose the", "present-participle": " losing the", "past-participle": " lost the"}),
+
+
+
+
+    # End of my additions
 }
 
 
