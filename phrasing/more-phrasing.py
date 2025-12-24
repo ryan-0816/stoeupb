@@ -121,19 +121,22 @@ STARTERS = {
 
 # Change to not have AO in order to add more middle words
 SIMPLE_STARTERS = {
-    "STH": (" that", None),
-    "STPHR": (" if", None),
+    "STHA": (" that", None),
+    "STPA": (" if", None),
     "SWH": (" when", None),
-    "SKPR": (" what", None),
+    "SWHA": (" what", None),
     "SWHR": (" where", None),
-    "SPWR": (" who", None),
-    "SKPWH": (" why", None),
+    "SWHO": (" who", None),
+    "SWHAO": (" why", None),
+
     "SPWH": (" but", None),
     "STPR": (" for", None),
-    "SPWHR": (" how", None),
 
     # Remove the entry below if you don't want "and" phrases.
     "SKP": (" and", None),
+
+    # added how
+    "SPWHR": (" how", None)
 }
 
 SIMPLE_PRONOUNS = {
@@ -274,11 +277,19 @@ ENDERS = {
     "RLGSZ": ("past", {None: " played", "root": " play", "present-participle": " playing", "past-participle": " played"}),
     "RLGTSDZ": ("past", {None: " played with", "root": " play with", "present-participle": " playing with", "past-participle": " played with"}),
 
-    #
-    "RPBGS"
+    '''
+    "RPBGS": 
     "RPBGTS"
     "RPBGSZ"
     "RPBGTSDZ"
+    '''
+
+    # RBLGS: To choose (to)
+    "RBLGS":  ("present", {None: " choose", "3ps": " chooses", "present-participle": " choosing", "past-participle": " chosen"}),
+    "RBLGTS": ("present", {None: " choose to", "3ps": " chooses to", "present-participle": " choosing to", "past-participle": " chosen to"}),
+    "RBLGSZ": ("past", {None: " chose", "root": " choose", "present-participle": " choosing", "past-participle": " chosen"}),
+    "RBLGTSDZ": ("past", {None: " chose to", "root": " choose to", "present-participle": " choosing to", "past-participle": " chosen to"}),
+
 
     # RPBLGS: To wait (for)
     "RPBLGS":    ("present", {None: " wait", "3ps": " waits", "present-participle": " waiting", "past-participle": " waited"}),
