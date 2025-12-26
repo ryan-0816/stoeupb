@@ -216,12 +216,12 @@ STRUCTURE_EXCEPTIONS = {
     # "*EUF": ({"present": {None: " haven't ! been", "3ps": " hasn't ! been"}, "past": " hadn't ! been"}, False, "present-participle"),
     # "EUF": ({"present": {None: " have ! been", "3ps": " has ! been"}, "past": " had ! been"}, False, "present-participle"),
 
-    # removed EU for still
-    '''
-    "EU": ("! still", False, None),
+    # Removed EU for inverted questions - now in main structures
+    # "EU": ("! still", False, None),
+    
+    # never/just without enders (no middle verb)
     "EUF": ("! never", False, None),
     "UF": ("! just", False, None),
-    '''
     
     # added EU for inverted question with am/is/are (no ender)
     "EU": ({
@@ -365,7 +365,7 @@ STRUCTURES = {
         "past": "should ! be",
     }, False, "present-participle"),
     "O*EU": ({
-        "present": "shall ! not be",
+        "present": "shouldn't ! be",
         "past": "shouldn't ! be",
     }, False, "present-participle"),
 
@@ -384,20 +384,14 @@ STRUCTURES = {
     "*F": ({tense: {form: "!*" + TO_HAVE[tense][form] for form in TO_HAVE[tense]} for tense in TO_HAVE}, True, "past-participle"),
     "F": ({tense: {form: "!*" + TO_HAVE[tense][form] for form in TO_HAVE[tense]} for tense in TO_HAVE}, True, "past-participle"),
 
-    # removed EU
-    '''
-    "*EU": ("! still*", True, None),
-    "EU": ("!* still", True, None),
-    '''
-    # The EU inversion is already defined above
-
+    # never/even/just WITH enders (uses middle verb)
     "*EUF": ("!* even", True, "root"),
     "EUF": ("!* never", True, "root"),
 
     "*U": ({"present": ALWAYS, "past": ALWAYS}, True, None),
     "U": ({"present": ALWAYS, "past": ALWAYS}, True, None),
     "*UF": ("! just*", True, None),
-    "UF": ("!* just", True, None),
+    "UF": ("!* just", True, "root"),
 }
 
 ENDERS = {
